@@ -1,3 +1,3 @@
 export default function Index() {
-  return <h1>You're running React on the Edge Dude!</h1>;
+  return <h1>You're running React on the Edge ADEL!</h1>;
 }
