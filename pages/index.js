@@ -1,3 +1,9 @@
 export default function Index() {
-  return <h1>You're running React on the Edge ADEL!</h1>;
+  return (
+    <div>
+      You're running React on the Edge
+      <h1>Now we Have New page </h1>
+      <h3>Stay Tuned</h3>
+    </div>
+  );
 }
