@@ -10,10 +10,9 @@ import { handleEvent } from "flareact";
 const DEBUG = false;
 
 addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
   try {
-    event.respondWith(
-      handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG)
-    );
+    event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
   } catch (e) {
     if (DEBUG) {
       return event.respondWith(
@@ -25,3 +24,13 @@ addEventListener("fetch", (event) => {
     event.respondWith(new Response("Internal Error", { status: 500 }));
   }
 });
+
+async function handleRequest(request) {
+  if (request.cf.country == "TR") {
+    return new Response("Hello from turk", { status: 200 });
+  } else {
+    return new Response(template(request.cf), {
+      headers: { "content-type": "text/html" },
+    });
+  }
+}
