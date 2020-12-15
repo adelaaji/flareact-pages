@@ -6,7 +6,7 @@ export async function getEdgeProps(ctx) {
     { id: 4, title: " 78" },
     { id: 5, title: " 99" },
   ];
-
+  console.log("Edge about page:", ctx);
   return {
     props: {
       posts,
