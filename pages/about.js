@@ -18,6 +18,7 @@ export async function getEdgeProps(ctx) {
 export default function About({ posts, ctx }) {
   return (
     <div>
+      {console.log("ctx", ctx.event)}
       <h1>Posts</h1>
       <ul>
         {posts.map((post) => {
