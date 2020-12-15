@@ -26,7 +26,6 @@ addEventListener("fetch", (event) => {
 });
 
 async function handleRequest(request) {
-  console.log("request", request.cf);
   return new Response(template(request.cf), {
     headers: { "content-type": "text/html" },
   });
