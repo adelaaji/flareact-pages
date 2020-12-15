@@ -26,11 +26,8 @@ addEventListener("fetch", (event) => {
 });
 
 async function handleRequest(request) {
-  if (request.cf.country == "TR") {
-    return new Response("Hello from turk", { status: 200 });
-  } else {
-    return new Response(template(request.cf), {
-      headers: { "content-type": "text/html" },
-    });
-  }
+  console.log("request", request.cf);
+  return new Response(template(request.cf), {
+    headers: { "content-type": "text/html" },
+  });
 }
