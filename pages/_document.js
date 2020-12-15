@@ -6,8 +6,11 @@ class MyDocument extends Document {
 
     let props = await Document.getEdgeProps(ctx);
     if (ctx.event.request.cf.country == "TR") {
-      props.html = "Welcome from turkey";
+      props.html = `Welcome from turkey ${ctx.event.request.cf.city}`;
+    } else {
+      props.html += `<h1>${ctx.event.request.cf.city}</h1>`;
     }
+
     console.log("Pro", props);
     return { ...props };
   }
