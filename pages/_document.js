@@ -10,7 +10,9 @@ class MyDocument extends Document {
     let userData = "";
     if (userIp != undefined) {
       //    let result = await Axios.get(`http://www.geoplugin.net/json.gp?ip=${userIp}`);
-      userData = `<h1>Your IP is ${userData} </h1>`;
+      userData = `<h1>Your IP is ${userData} 
+      ${JSON.stringify(ctx.event.request, 0, 5)}
+      </h1>`;
     }
     let props = await Document.getEdgeProps(ctx);
     if (ctx.event.request.cf.country == "TR") {
