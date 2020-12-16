@@ -35,7 +35,12 @@ async function handleEvent(event) {
   try {
     console.log("eventevent", event);
     var xxx = await getAssetFromKV(event);
-    console.log("xxx", xxx);
+    event.respondWith(
+      new Response(`<pre><code>${JSON.stringify(xxx, 0, 5)}</code></pre>`, {
+        status: 200,
+      })
+    );
+    //.log("xxx", xxx);
     return xxx;
   } catch (e) {
     let pathname = new URL(event.request.url).pathname;
