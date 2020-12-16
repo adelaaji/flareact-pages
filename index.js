@@ -11,14 +11,14 @@ const DEBUG = false;
 
 addEventListener("fetch", (event) => {
   try {
-    let xxx = await getAssetFromKV(event);
+    //   let xxx = await getAssetFromKV(event);
     console.log("event", event.req);
     event.respondWith(
-      new Response(`<pre><code>${JSON.stringify(xxx, 0, 5)}</code></pre>`, {
+      new Response(`<pre><code>${JSON.stringify(event, 0, 5)}</code></pre>`, {
         status: 200,
       })
     );
-   // event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
+    // event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
   } catch (e) {
     if (DEBUG) {
       return event.respondWith(
