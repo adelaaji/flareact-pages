@@ -1,30 +1,23 @@
-import Axios from "axios";
 import Document, { Html, Head, Main, FlareactScript } from "flareact/document";
+import { getComent } from "./functions";
 
 class MyDocument extends Document {
   static async getEdgeProps(ctx) {
     console.log("CX", ctx.event.request);
-    let userIp = ctx.event.request.headers.get("CF-Connecting-IP");
-    const device = ctx.event.request.headers.get("CF-Device-Type");
-    // //http://www.geoplugin.net/json.gp?ip=
-    // let userData = "";
-    // if (userIp != undefined) {
-    //   //    let result = await Axios.get(`http://www.geoplugin.net/json.gp?ip=${userIp}`);
-    //   userData = `<h1>Your IP is ${userData}
-    //   <pre>
-    //     <code>
-    //     ${JSON.stringify(ctx.event, 0, 5)}
-    //     </code>
-    //   </pre>
-    //   </h1>`;
-    // }
+    let comment = await getComent(12);
     let props = await Document.getEdgeProps(ctx);
-    // if (ctx.event.request.cf.country == "TR") {
-    //   props.html = `Welcome from turkey <br /> ${device} ${userData}`;
-    // } else {
-    //   props.html += `<h1>Welcome to other word</h1> ${userData}`;
-    // }
-
+    if (ctx.event.request.cf.country == "TR") {
+      comment = await getComent(12);
+    } else {
+      comment = await getComent(5);
+    }
+    props.html += `<h1>
+    <pre>
+      <code>
+        ${JSON.stringify(comment, 0, 5)}
+      </code>
+    </pre>
+    </h1>`;
     console.log("Pro", props);
     return { ...props };
   }
@@ -35,7 +28,6 @@ class MyDocument extends Document {
         <Head />
         <body>
           <Main />
-          {console.log("the props : ", this.props)}
           <FlareactScript />
         </body>
       </Html>
