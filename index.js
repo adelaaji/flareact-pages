@@ -1,4 +1,4 @@
-import { handleEvent } from "flareact";
+//import { handleEvent } from "flareact";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 /**
  * The DEBUG flag will do two things that help during development:
@@ -13,12 +13,12 @@ addEventListener("fetch", (event) => {
   try {
     //   let xxx = await getAssetFromKV(event);
     console.log("event", event.req);
-    event.respondWith(
-      new Response(`<pre><code>${JSON.stringify(event, 0, 5)}</code></pre>`, {
-        status: 200,
-      })
-    );
-    // event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
+    // event.respondWith(
+    //   new Response(`<pre><code>${JSON.stringify(event, 0, 5)}</code></pre>`, {
+    //     status: 200,
+    //   })
+    // );
+    event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
   } catch (e) {
     if (DEBUG) {
       return event.respondWith(
@@ -30,3 +30,18 @@ addEventListener("fetch", (event) => {
     event.respondWith(new Response("Internal Error", { status: 500 }));
   }
 });
+
+async function handleEvent(event) {
+  try {
+    console.log("eventevent", event);
+    var xxx = await getAssetFromKV(event);
+    console.log("xxx", xxx);
+    return xxx;
+  } catch (e) {
+    let pathname = new URL(event.request.url).pathname;
+    return new Response(`"${pathname}" not found`, {
+      status: 404,
+      statusText: "not found",
+    });
+  }
+}
