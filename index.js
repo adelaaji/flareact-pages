@@ -11,8 +11,13 @@ const DEBUG = false;
 
 addEventListener("fetch", (event) => {
   try {
-    console.log("event", event);
-    event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
+    console.log("event", event.req);
+    event.respondWith(
+      new Response(`<pre><code>${JSON.stringify(event, 0, 5)}</code></pre>`, {
+        status: 200,
+      })
+    );
+    //event.respondWith(handleEvent(event, require.context("./pages/", true, /\.(js|jsx|ts|tsx)$/), DEBUG));
   } catch (e) {
     if (DEBUG) {
       return event.respondWith(
